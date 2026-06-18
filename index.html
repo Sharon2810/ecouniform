@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Uniform Exchange</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2e7d32; text-align: center; margin-bottom: 5px; }
+        .tagline { text-align: center; color: #666; margin-bottom: 25px; font-weight: bold; }
+        .filter-form { display: flex; gap: 15px; margin-bottom: 30px; justify-content: center; background: #e8f5e9; padding: 15px; border-radius: 6px; }
+        select, button { padding: 10px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; }
+        button { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #1b5e20; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .card { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card h3 { margin-top: 0; color: #1b5e20; font-size: 18px; }
+        .badge { display: inline-block; background-color: #e8f5e9; color: #2e7d32; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; margin-top: 10px; }
+        .no-results { grid-column: 1/-1; text-align: center; color: #999; padding: 20px; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌿 Eco-Uniform Exchange Dashboard</h1>
+    <div class="tagline">Sustainable Consumption Interactive Prototype</div>
+
+    <div class="filter-form">
+        <select id="schoolFilter">
+            <option value="ALL">-- All Schools --</option>
+            <option value="Trincomalee College">Trincomalee College</option>
+            <option value="St. Joseph's College">St. Joseph's College</option>
+        </select>
+
+        <select id="sizeFilter">
+            <option value="ALL">-- All Sizes --</option>
+            <option value="S">Small (S)</option>
+            <option value="M">Medium (M)</option>
+            <option value="L">Large (L)</option>
+        </select>
+
+        <button onclick="filterItems()">Filter Matches</button>
+        <button onclick="resetFilters()" style="background-color: #757575;">Reset</button>
+    </div>
+
+    <h2>Available Exchange Items</h2>
+    <div class="grid" id="itemsGrid">
+        </div>
+</div>
+
+<script>
+    // Mock Database Array representing the system data store
+    const dataset = [
+        { type: "Blue House Sports Kit", size: "M", school: "Trincomalee College", user: "UserA" },
+        { type: "Official School Blazer", size: "L", school: "Trincomalee College", user: "UserC" },
+        { type: "Uniform White Shirt", size: "S", school: "St. Joseph's College", user: "UserB" },
+        { type: "School Skirt / Trousers", size: "M", school: "St. Joseph's College", user: "UserD" }
+    ];
+
+    // Function to render elements onto the visual interface grid
+    function displayItems(items) {
+        const grid = document.getElementById("itemsGrid");
+        grid.innerHTML = "";
+
+        if (items.length === 0) {
+            grid.innerHTML = `<p class="no-results">No items match your exact search criteria currently.</p>`;
+            return;
+        }
+
+        items.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <h3>${item.type}</h3>
+                <p><strong>Size:</strong> ${item.size}</p>
+                <p><strong>School:</strong> ${item.school}</p>
+                <p><strong>Listed by:</strong> ${item.user}</p>
+                <span class="badge">Cost: 1 Eco-Credit</span>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Algorithmic Filter Logic matching selections
+    function filterItems() {
+        const schoolValue = document.getElementById("schoolFilter").value;
+        const sizeValue = document.getElementById("sizeFilter").value;
+
+        const filtered = dataset.filter(item => {
+            const matchSchool = (schoolValue === "ALL" || item.school === schoolValue);
+            const matchSize = (sizeValue === "ALL" || item.size === sizeValue);
+            return matchSchool && matchSize;
+        });
+
+        displayItems(filtered);
+    }
+
+    function resetFilters() {
+        document.getElementById("schoolFilter").value = "ALL";
+        document.getElementById("sizeFilter").value = "ALL";
+        displayItems(dataset);
+    }
+
+    // Initial load presentation call
+    displayItems(dataset);
+</script>
+
+</body>
+</html>
