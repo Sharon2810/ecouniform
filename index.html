@@ -5,107 +5,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eco-Uniform Exchange</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f7f6; color: #333; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #2e7d32; text-align: center; margin-bottom: 5px; }
-        .tagline { text-align: center; color: #666; margin-bottom: 25px; font-weight: bold; }
-        .filter-form { display: flex; gap: 15px; margin-bottom: 30px; justify-content: center; background: #e8f5e9; padding: 15px; border-radius: 6px; }
-        select, button { padding: 10px; font-size: 16px; border-radius: 4px; border: 1px solid #ccc; }
-        button { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-weight: bold; }
+        body { font-family: Arial, sans-serif; margin: 15px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2e7d32; text-align: center; font-size: 24px; margin-bottom: 5px; }
+        .tagline { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; font-weight: bold; }
+        
+        .section-box { background: #e8f5e9; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #c8e6c9; }
+        h2 { color: #1b5e20; font-size: 18px; margin-top: 0; }
+        
+        label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 14px; }
+        select, input, button { width: 100%; padding: 10px; font-size: 15px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
+        
+        button { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-weight: bold; margin-top: 10px; }
         button:hover { background-color: #1b5e20; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .card { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: 0.2s; }
-        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .card h3 { margin-top: 0; color: #1b5e20; font-size: 18px; }
-        .badge { display: inline-block; background-color: #e8f5e9; color: #2e7d32; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; margin-top: 10px; }
-        .no-results { grid-column: 1/-1; text-align: center; color: #999; padding: 20px; font-style: italic; }
+        
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .card { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 6px; position: relative; }
+        .card h3 { margin-top: 0; color: #1b5e20; font-size: 16px; }
+        .badge { display: inline-block; background-color: #e8f5e9; color: #2e7d32; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }
+        .claim-btn { background-color: #0288d1; margin-top: 10px; font-size: 13px; padding: 6px; }
+        .claim-btn:hover { background-color: #01579b; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🌿 Eco-Uniform Exchange Dashboard</h1>
-    <div class="tagline">Sustainable Consumption Interactive Prototype</div>
+    <h1>🌿 Eco-Uniform Exchange</h1>
+    <div class="tagline">Sustainable Consumption National Prototype</div>
 
-    <div class="filter-form">
-        <select id="schoolFilter">
-            <option value="ALL">-- All Schools --</option>
-            <option value="Trincomalee College">Trincomalee College</option>
-            <option value="St. Joseph's College">St. Joseph's College</option>
-        </select>
+    <div class="section-box">
+        <h2>📤 Step A: Donor - List a Pre-loved Clothing Item</h2>
+        <form id="uploadForm" onsubmit="addNewItem(event)">
+            <label>Select School:</label>
+            <select id="donorSchool" required>
+                <option value="T/T/St. Mary's College, Trincomalee">T/T/St. Mary's College, Trincomalee</option>
+                <option value="Royal College, Colombo">Royal College, Colombo</option>
+                <option value="Ananda College, Colombo">Ananda College, Colombo</option>
+            </select>
 
-        <select id="sizeFilter">
-            <option value="ALL">-- All Sizes --</option>
-            <option value="S">Small (S)</option>
-            <option value="M">Medium (M)</option>
-            <option value="L">Large (L)</option>
-        </select>
+            <label>Item Type:</label>
+            <select id="donorType" required>
+                <option value="Official White Uniform Shirt">Official White Uniform Shirt</option>
+                <option value="School Skirt / Trousers">School Skirt / Trousers</option>
+                <option value="House Sports Kit (Blue)">House Sports Kit (Blue)</option>
+                <option value="Prefect Blazer">Prefect Blazer</option>
+            </select>
 
-        <button onclick="filterItems()">Filter Matches</button>
-        <button onclick="resetFilters()" style="background-color: #757575;">Reset</button>
+            <label>Garment Size:</label>
+            <select id="donorSize" required>
+                <option value="S">Small (S)</option>
+                <option value="M">Medium (M)</option>
+                <option value="L">Large (L)</option>
+            </select>
+
+            <button type="submit">Submit Listing (+1 Eco-Credit Reward)</button>
+        </form>
     </div>
 
-    <h2>Available Exchange Items</h2>
+    <div class="section-box" style="background-color: #f0f4c3; border-color: #d4e157;">
+        <h2>🔍 Step B: Buyer - Find and Receive Items</h2>
+        <label>Filter by School Location:</label>
+        <select id="searchSchool" onchange="filterMarketplace()">
+            <option value="ALL">-- View All Schools Nationwide --</option>
+            <option value="T/T/St. Mary's College, Trincomalee">T/T/St. Mary's College, Trincomalee</option>
+            <option value="Royal College, Colombo">Royal College, Colombo</option>
+            <option value="Ananda College, Colombo">Ananda College, Colombo</option>
+        </select>
+    </div>
+
+    <h2>Available Marketplace Listings</h2>
     <div class="grid" id="itemsGrid">
         </div>
 </div>
 
 <script>
-    // Mock Database Array representing the system data store
-    const dataset = [
-        { type: "Blue House Sports Kit", size: "M", school: "Trincomalee College", user: "UserA" },
-        { type: "Official School Blazer", size: "L", school: "Trincomalee College", user: "UserC" },
-        { type: "Uniform White Shirt", size: "S", school: "St. Joseph's College", user: "UserB" },
-        { type: "School Skirt / Trousers", size: "M", school: "St. Joseph's College", user: "UserD" }
+    // Initial Nationwide Database Array
+    let database = [
+        { type: "House Sports Kit (Blue)", size: "M", school: "T/T/St. Mary's College, Trincomalee", user: "Sharon_28" },
+        { type: "Prefect Blazer", size: "L", school: "Royal College, Colombo", user: "Kamal_Parent" },
+        { type: "Official White Uniform Shirt", size: "S", school: "T/T/St. Mary's College, Trincomalee", user: "Piruthuvi_P" }
     ];
 
-    // Function to render elements onto the visual interface grid
-    function displayItems(items) {
+    function displayDatabase(items) {
         const grid = document.getElementById("itemsGrid");
         grid.innerHTML = "";
-
-        if (items.length === 0) {
-            grid.innerHTML = `<p class="no-results">No items match your exact search criteria currently.</p>`;
+        
+        if(items.length === 0) {
+            grid.innerHTML = "<p style='text-align:center; color:#999;'>No items available matching this filter.</p>";
             return;
         }
 
-        items.forEach(item => {
+        items.forEach((item, index) => {
             const card = document.createElement("div");
             card.className = "card";
             card.innerHTML = `
                 <h3>${item.type}</h3>
-                <p><strong>Size:</strong> ${item.size}</p>
-                <p><strong>School:</strong> ${item.school}</p>
-                <p><strong>Listed by:</strong> ${item.user}</p>
+                <p><strong>Size:</strong> ${item.size} | <strong>Owner:</strong> ${item.user}</p>
+                <p style="font-size:13px; color:#555;"><strong>School:</strong> ${item.school}</p>
                 <span class="badge">Cost: 1 Eco-Credit</span>
+                <button class="claim-btn" onclick="claimItem(${index})">Request & Receive Item</button>
             `;
             grid.appendChild(card);
         });
     }
 
-    // Algorithmic Filter Logic matching selections
-    function filterItems() {
-        const schoolValue = document.getElementById("schoolFilter").value;
-        const sizeValue = document.getElementById("sizeFilter").value;
-
-        const filtered = dataset.filter(item => {
-            const matchSchool = (schoolValue === "ALL" || item.school === schoolValue);
-            const matchSize = (sizeValue === "ALL" || item.size === sizeValue);
-            return matchSchool && matchSize;
-        });
-
-        displayItems(filtered);
+    // Dynamic Upload Action updating the array locally
+    function addNewItem(event) {
+        event.preventDefault();
+        
+        const newItem = {
+            type: document.getElementById("donorType").value,
+            size: document.getElementById("donorSize").value,
+            school: document.getElementById("donorSchool").value,
+            user: "Self_Donor"
+        };
+        
+        database.unshift(newItem); // Adds newest listing to the top
+        displayDatabase(database);
+        document.getElementById("uploadForm").reset();
+        alert("Success! Item uploaded to the national database registry. You earned +1 Eco-Credit.");
     }
 
-    function resetFilters() {
-        document.getElementById("schoolFilter").value = "ALL";
-        document.getElementById("sizeFilter").value = "ALL";
-        displayItems(dataset);
+    // Interactive Filtering Action
+    function filterMarketplace() {
+        const selection = document.getElementById("searchSchool").value;
+        if(selection === "ALL") {
+            displayDatabase(database);
+        } else {
+            const filtered = database.filter(item => item.school === selection);
+            displayDatabase(filtered);
+        }
     }
 
-    // Initial load presentation call
-    displayItems(dataset);
+    // Receive Processing Simulation
+    function claimItem(index) {
+        alert("Transaction Initialized! 1 Eco-Credit has been transferred. A safe campus swap meeting request has been generated for: " + database[index].type);
+        database.splice(index, 1); // Removes item from marketplace once claimed
+        displayDatabase(database);
+    }
+
+    // Initialize display layout
+    displayDatabase(database);
 </script>
 
 </body>
 </html>
+
